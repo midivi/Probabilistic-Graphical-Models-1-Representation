@@ -38,13 +38,19 @@ for i = 1:size(E, 1),
             % Hint: You might find it helpful to use IndexToAssignment
             %       and SetValueOfAssignment
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            disp('factor')
-            F(j)
-            disp('observed var')
-            v;
-            disp('observed val')
-            x
-            assignments = AssignmentToIndex(F(j).var, F(j).card)
+            for idx = 1:length(F(j).val)
+                vars = F(j).var;
+                which_idx_is_var = find(F(j).var==v);
+                assignment_idx = IndexToAssignment(idx, [F(j).card]);
+                variable_changing = v;
+                value_of_variable_changing = x;
+                value_of_var = assignment_idx(which_idx_is_var);
+                if value_of_var ~= x
+                    F(j).val;
+                    F(j).val(idx) = 0.0;
+                    F(j).val;
+                end
+            end;
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 				% Check validity of evidence / resulting factor
