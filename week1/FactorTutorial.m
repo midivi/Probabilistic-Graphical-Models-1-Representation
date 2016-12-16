@@ -110,7 +110,7 @@
 % These sample factors define a simple chain Bayesian network over binary 
 % variables: X_1 -> X_2 -> X_3
 %
-
+clc;
 % FACTORS.INPUT(1) contains P(X_1)
 FACTORS.INPUT(1) = struct('var', [1], 'card', [2], 'val', [0.11, 0.89]);
 
@@ -137,7 +137,7 @@ FACTORS.EVIDENCE(2) = struct('var', [2, 1], 'card', [2, 2], 'val', [0.59, 0, 0.2
 FACTORS.EVIDENCE(3) = struct('var', [3, 2], 'card', [2, 2], 'val', [0, 0.61, 0, 0]);
 
 % Compute Joint Distribution
-% FACTORS.JOINT = ComputeJointDistribution(FACTORS.INPUT);
+FACTORS.JOINT = ComputeJointDistribution(FACTORS.INPUT);
 FACTORS.JOINT = struct('var', [1, 2, 3], 'card', [2, 2, 2], 'val', [0.025311, 0.076362, 0.002706, 0.041652, 0.039589, 0.119438, 0.042394, 0.652548]);
 
 % Compute Marginal
