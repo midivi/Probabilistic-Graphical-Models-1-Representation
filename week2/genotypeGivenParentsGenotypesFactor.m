@@ -25,7 +25,7 @@ function genotypeFactor = genotypeGivenParentsGenotypesFactor(numAlleles, genoty
 % The number of genotypes is (number of alleles choose 2) + number of 
 % alleles -- need to add number of alleles at the end to account for homozygotes
 
-genotypeFactor = struct('var', [], 'card', [], 'val', []);
+genotypeFactor = struct('var', [], 'card', [], 'val', [])
 
 % Each allele has an ID.  Each genotype also has an ID.  We need allele and
 % genotype IDs so that we know what genotype and alleles correspond to each
@@ -38,7 +38,7 @@ genotypeFactor = struct('var', [], 'card', [], 'val', []);
 % using generateAlleleGenotypeMappers(numAlleles). (A genotype consists of 
 % 2 alleles.)
 
-[allelesToGenotypes, genotypesToAlleles] = generateAlleleGenotypeMappers(numAlleles);
+[allelesToGenotypes, genotypesToAlleles] = generateAlleleGenotypeMappers(numAlleles)
 
 % One or both of these matrices might be useful.
 %
@@ -58,8 +58,25 @@ genotypeFactor = struct('var', [], 'card', [], 'val', []);
 
 % Fill in genotypeFactor.var.  This should be a 1-D row vector.
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
-
+numberOfGenotypes = nchoosek(numAlleles, 2) + numAlleles;
+genotypeFactor.card = [numberOfGenotypes, numberOfGenotypes, numberOfGenotypes];
+genotypeFactor.var = [genotypeVarChild, genotypeVarParentOne, genotypeVarParentTwo];
 genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+assignments =  IndexToAssignment(1:length(genotypeFactor.val), genotypeFactor.card);
+for i=1:length(assignments)
+	childGenoID =  assignments(i,[1]);
+	childGeno = sort(genotypesToAlleles(childGenoID, :));
+	parentAGenoID = assignments(i,[2]);
+	parentAGeno = genotypesToAlleles(parentAGenoID, :);
+	parentBGenoID = assignments(i,[3]);
+	parentBGeno = genotypesToAlleles(parentBGenoID, :);
+	outcome1 = sort([parentAGeno(1), parentBGeno(1)]);
+	outcome2 = sort([parentAGeno(1), parentBGeno(2)]);
+	outcome3 = sort([parentAGeno(2), parentBGeno(1)]);
+	outcome4 = sort([parentAGeno(2), parentBGeno(2)]);
+	odds = sum(ismember([outcome1;outcome2;outcome3;outcome4], childGeno, 'rows'))/4;
+	genotypeFactor.val(i) = odds;
+end
 % Replace the zeros in genotypeFactor.val with the correct values.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

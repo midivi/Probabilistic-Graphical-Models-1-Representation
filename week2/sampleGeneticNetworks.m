@@ -27,12 +27,12 @@ genotypeFactor = struct('var', [1], 'card', [3], 'val', [0.01,0.18,0.81]); % Com
 genotypeFactor = genotypeGivenAlleleFreqsFactor(alleleFreqs, genotypeVar);
 
 % Testing genotypeGivenParentsGenotypesFactor:
-numAlleles = 2;
+numAlleles = 3
 genotypeVarChild = 3;
 genotypeVarParentOne = 1;
 genotypeVarParentTwo = 2;
 genotypeFactorPar = struct('var', [3,1,2], 'card', [3,3,3], 'val', [1,0,0,0.5,0.5,0,0,1,0,0.5,0.5,0,0.25,0.5,0.25,0,0.5,0.5,0,1,0,0,0.5,0.5,0,0,1]); % Comment out this line for testing
-% genotypeFactorPar = genotypeGivenParentsGenotypesFactor(numAlleles, genotypeVarChild, genotypeVarParentOne, genotypeVarParentTwo);
+genotypeFactorPar = genotypeGivenParentsGenotypesFactor(numAlleles, genotypeVarChild, genotypeVarParentOne, genotypeVarParentTwo)
 
 % Testing constructGeneticNetwork:
 pedigree = struct('parents', [0,0;1,3;0,0]);

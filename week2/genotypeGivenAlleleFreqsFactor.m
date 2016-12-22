@@ -58,8 +58,15 @@ numAlleles = length(alleleFreqs);
 
 % Fill in genotypeFactor.var.  This should be a 1-D row vector.
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
-
+genotypeFactor.var = [genotypeVar];
+genotypeFactor.card = [3];
 genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+
+% val(1) =  AA = alleleFreqs(1)²
+% val(2) = Aa = 2 * alleleFreqs(1)*AlleleFreqs(2)
+% val(3) = aa = alleleFreqs(2)²
+genotypeFactor.val = [alleleFreqs(1)*alleleFreqs(1), 2 * alleleFreqs(1) * alleleFreqs(2), alleleFreqs(2)*alleleFreqs(2)];
+
 % Replace the zeros in genotypeFactor.val with the correct values.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
