@@ -60,8 +60,21 @@ phenotypeFactor = struct('var', [], 'card', [], 'val', []);
 
 % Fill in phenotypeFactor.var.  This should be a 1-D row vector.
 % Fill in phenotypeFactor.card.  This should be a 1-D row vector.
-
+phenotypeFactor.card = [2,numAlleles, numAlleles];
+phenotypeFactor.var = [phenotypeVar, geneCopyVarOne, geneCopyVarTwo];
 phenotypeFactor.val = zeros(1, prod(phenotypeFactor.card));
+assignments = IndexToAssignment(1:length(phenotypeFactor.val), phenotypeFactor.card);
+for i = 1:length(assignments)
+	lookup = assignments(i,[2,3]);
+	phenotypeIdx = allelesToGenotypes(lookup(1), lookup(2));
+	probability = alphaList(phenotypeIdx);
+	if assignments(i,1) == 1
+		phenotypeFactor.val(i) = probability;
+	elseif assignments(i,1) == 2
+		phenotypeFactor.val(i) = 1 - probability;
+	end
+		
+end
 % Replace the zeros in phentoypeFactor.val with the correct values.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
