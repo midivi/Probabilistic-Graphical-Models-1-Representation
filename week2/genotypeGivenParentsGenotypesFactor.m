@@ -25,7 +25,7 @@ function genotypeFactor = genotypeGivenParentsGenotypesFactor(numAlleles, genoty
 % The number of genotypes is (number of alleles choose 2) + number of 
 % alleles -- need to add number of alleles at the end to account for homozygotes
 
-genotypeFactor = struct('var', [], 'card', [], 'val', [])
+genotypeFactor = struct('var', [], 'card', [], 'val', []);
 
 % Each allele has an ID.  Each genotype also has an ID.  We need allele and
 % genotype IDs so that we know what genotype and alleles correspond to each
@@ -38,7 +38,7 @@ genotypeFactor = struct('var', [], 'card', [], 'val', [])
 % using generateAlleleGenotypeMappers(numAlleles). (A genotype consists of 
 % 2 alleles.)
 
-[allelesToGenotypes, genotypesToAlleles] = generateAlleleGenotypeMappers(numAlleles)
+[allelesToGenotypes, genotypesToAlleles] = generateAlleleGenotypeMappers(numAlleles);
 
 % One or both of these matrices might be useful.
 %

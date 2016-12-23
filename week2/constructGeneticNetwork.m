@@ -65,5 +65,41 @@ numAlleles = length(alleleFreqs); % Number of alleles
 % 1 - numPeople: genotype variables
 % numPeople+1 - 2*numPeople: phenotype variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+for i=1:numPeople
+	genoIdx = i;
+	phenoIdx = i + numPeople;
+	parents = pedigree.parents(i, :);
+	if (isequal(parents, [0,0]))
+		genotypeVal = genotypeGivenAlleleFreqsFactor(alleleFreqs, i).val;
+		genotypeCard = [3];
+		genoTypeVar = genoIdx;
+		factorList(genoIdx).val = genotypeVal;
+		factorList(genoIdx).var = genoTypeVar;
+		factorList(genoIdx).card = genotypeCard;
+	else
+		genotype = genotypeGivenParentsGenotypesFactor(numAlleles, i, parents(1), parents(2));
+		factorList(genoIdx).val = genotype.val;
+		factorList(genoIdx).card = genotype.card;
+		factorList(genoIdx).var = genotype.var;
+	end
 
+	phenotypeVar = [phenoIdx, genoIdx];
+	phenotypeCard = [2,3];
+	phenotypeVal = [alphaList(1), 1-alphaList(1), alphaList(2), 1-alphaList(2), alphaList(3), 1-alphaList(3)];
+	factorList(phenoIdx).var = phenotypeVar;
+	factorList(phenoIdx).card = phenotypeCard;
+	factorList(phenoIdx).val = phenotypeVal;
+end
+% disp('1')
+% factorList(1)
+% disp('2')
+% factorList(2)
+% disp('3')
+% factorList(3)
+% disp('4')
+% factorList(4)
+% disp('5')
+% factorList(5)
+% disp('6')
+% factorList(6)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
