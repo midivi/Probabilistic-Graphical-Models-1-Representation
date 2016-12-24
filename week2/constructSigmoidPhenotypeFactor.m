@@ -47,8 +47,34 @@ phenotypeFactor = struct('var', [], 'card', [], 'val', []);
 
 % Fill in phenotypeFactor.var.  This should be a 1-D row vector.
 % Fill in phenotypeFactor.card.  This should be a 1-D row vector.
+phenotypeFactor.var = var = [phenotypeVar, geneCopyVarOneList(1), geneCopyVarOneList(2), geneCopyVarTwoList(1), geneCopyVarTwoList(2)];
+phenotypeFactor.card = [2,2,2,2,2];
 
 phenotypeFactor.val = zeros(1, prod(phenotypeFactor.card));
 % Replace the zeros in phentoypeFactor.val with the correct values.
 
+assignments = IndexToAssignment(1:length(phenotypeFactor.val), phenotypeFactor.card);
+
+for i= 1:length(assignments)
+	trait = (assignments(i,1) == 1);
+	alleleIdx1 = assignments(i,2);
+	alleleIdx2 = assignments(i,3);
+	alleleIdx3 = assignments(i,4);
+	alleleIdx4 = assignments(i,5);
+
+	f1 = alleleWeights{1}(alleleIdx1);
+	f2 = alleleWeights{2}(alleleIdx2);
+
+
+	f3 = alleleWeights{1}(alleleIdx3);
+	f4 = alleleWeights{2}(alleleIdx4);
+
+	f = f1+f2+f3+f4;
+	probability = computeSigmoid(f);
+
+	if trait == 0  % probability of no trait.
+		probability = 1 - probability;	
+	end
+	phenotypeFactor.val(i) = probability;
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
