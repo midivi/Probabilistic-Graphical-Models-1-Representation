@@ -27,7 +27,9 @@ factors = repmat(struct('var', [], 'card', [], 'val', []), n, 1);
 
 for i = 1:n;
   factors(i).var = [i];
-  factors(i).card = imageModel.K;
+  % Note that the factor values you compute here will only contain the character variable C i .
+  % This occurs since the image variable I i , on which the factor also depends, is always observed. 
+  factors(i).card = imageModel.K; 
 
   factors(i).val = ComputeImageFactor( images(i).img, imageModel );
 end
