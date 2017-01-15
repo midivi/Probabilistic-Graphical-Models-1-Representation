@@ -51,7 +51,7 @@ if (~isempty(pairwiseModel))
     %%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     pairwiseFactors = ComputeEqualPairwiseFactors(images, imageModel.K);
-    %pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
+    pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
 else
     pairwiseFactors = [];
 end

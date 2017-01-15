@@ -18,6 +18,13 @@ n = length(images);
 
 factors = repmat(struct('var', [], 'card', [], 'val', []), n - 1, 1);
 
+commonFactorAssignments = IndexToAssignment(1:K*K, [K,K]);
+commonFactor = ones(K*K,1);
 % Your code here:
+for i= 1:n-1
+   factors(i).var = [i, i+1];
+   factors(i).val = commonFactor;
+   factors(i).card = [K, K];
+end
 
 end

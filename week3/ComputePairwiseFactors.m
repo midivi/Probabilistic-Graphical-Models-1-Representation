@@ -25,7 +25,19 @@ if (n < 2)
 end
 
 factors = repmat(struct('var', [], 'card', [], 'val', []), n - 1, 1);
+commonFactorAssignments = IndexToAssignment(1:K*K, [K,K]);
+commonFactor = zeros(K*K,1);
 
-% Your code here:
+for i= 1:length(commonFactorAssignments)
+   firstLetter = commonFactorAssignments(i,1);
+   secondLetter = commonFactorAssignments(i,2);
+   letterPairwiseFactor = pairwiseModel(firstLetter, secondLetter);
+   commonFactor(i) = letterPairwiseFactor;
+end
 
+for i = 1: n - 1
+    factors(i).val = commonFactor;
+    factors(i).card = [K, K];
+    factors(i).var = [i, i + 1];
+end
 end
