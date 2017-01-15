@@ -64,7 +64,7 @@ end
 
 % Your code here:
 
-if (isfield(imageModel, 'ignoreSimilarity') && imageModel.ignoreSimilarity)
+if (~isfield(imageModel, 'ignoreSimilarity') || imageModel.ignoreSimilarity)
     simFactors = [];
 else
     allSimFactors = ComputeAllSimilarityFactors(images, imageModel.K);
