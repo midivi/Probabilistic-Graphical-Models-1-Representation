@@ -30,19 +30,25 @@ commonFactorAssignments = IndexToAssignment(1:K*K*K, [K, K, K]);
 commonFactor = ones(K*K*K,1);
 
 for i= 1:length(commonFactorAssignments)
-   firstLetter = commonFactorAssignments(i, 1);
-   secondLetter = commonFactorAssignments(i, 2);
-   thirdLetter = commonFactorAssignments(i, 3);
-   letterPairwiseFactor = pairwiseModel(firstLetter, secondLetter);
-   commonFactor(i) = letterPairwiseFactor;
+    firstLetter = commonFactorAssignments(i, 1);
+    secondLetter = commonFactorAssignments(i, 2);
+    thirdLetter = commonFactorAssignments(i, 3);
+    tripletFactor = 1;
+
+    for j = 1:length(tripletList)
+        if tripletList(j).chars == [firstLetter, secondLetter, thirdLetter];
+            tripletFactor = tripletList(j).factorVal;
+            break
+        end
+    end
+
+    commonFactor(i) = tripletFactor;
 end
 
-for i = 1: n - 1
+for i = 1: n - 2
     factors(i).val = commonFactor;
-    factors(i).card = [K, K];
-    factors(i).var = [i, i + 1];
+    factors(i).card = [K, K, K];
+    factors(i).var = [i, i + 1, i + 2];
 end
-
-% Your code here:
 
 end
