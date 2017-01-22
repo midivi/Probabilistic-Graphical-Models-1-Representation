@@ -29,21 +29,27 @@ factors = repmat(struct('var', [], 'card', [], 'val', []), n - 2, 1);
 commonFactorAssignments = IndexToAssignment(1:K*K*K, [K, K, K]);
 commonFactor = ones(K*K*K,1);
 
-for i= 1:length(commonFactorAssignments)
-    firstLetter = commonFactorAssignments(i, 1);
-    secondLetter = commonFactorAssignments(i, 2);
-    thirdLetter = commonFactorAssignments(i, 3);
-    tripletFactor = 1;
+for i=1:length(tripletList)
+    assignment = tripletList(i).chars;
+    index = AssignmentToIndex(assignment, [K, K, K]);
+    commonFactor(index) = tripletList(i).factorVal;
 
-    for j = 1:length(tripletList)
-        if tripletList(j).chars == [firstLetter, secondLetter, thirdLetter];
-            tripletFactor = tripletList(j).factorVal;
-            break
-        end
-    end
-
-    commonFactor(i) = tripletFactor;
 end
+% for i= 1:length(commonFactorAssignments)
+%     firstLetter = commonFactorAssignments(i, 1);
+%     secondLetter = commonFactorAssignments(i, 2);
+%     thirdLetter = commonFactorAssignments(i, 3);
+%     tripletFactor = 1;
+
+%     for j = 1:length(tripletList)
+%         if tripletList(j).chars == [firstLetter, secondLetter, thirdLetter];
+%             tripletFactor = tripletList(j).factorVal;
+%             break
+%         end
+%     end
+
+%     commonFactor(i) = tripletFactor;
+% end
 
 for i = 1: n - 2
     factors(i).val = commonFactor;
