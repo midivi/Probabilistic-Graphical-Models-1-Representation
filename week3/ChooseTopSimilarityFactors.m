@@ -23,7 +23,19 @@ if (length(allFactors) <= F)
 end
 
 % Your code here:
-factors = allFactors; %%% REMOVE THIS LINE
+factors = allFactors;
+factors = repmat(struct('var', [], 'card', [], 'val', zeros(1)), F, 1);
 
+for i=1:length(allFactors)
+    similarityFactor = allFactors(i);
+    for j = 1:F
+        topSimilarityFactor = factors(j);
+        if similarityFactor.val(1) > topSimilarityFactor.val(1);
+            factors(j) = similarityFactor;
+            continue
+        end
+    end
+end
+factors
 end
 
