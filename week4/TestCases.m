@@ -25,7 +25,7 @@ for i=1:length(AllDs)
   I1.DecisionFactors = AllDs(i);
   allEU(i) = SimpleCalcExpectedUtility(I1);
 end
-
+% dummo commit
 % OUTPUT
 % allEU => [7.3000, 3.8000]
 
